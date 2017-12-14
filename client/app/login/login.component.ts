@@ -5,9 +5,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../services/auth.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
+declare const $: any;
+
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
@@ -28,6 +31,8 @@ export class LoginComponent implements OnInit {
               public toast: ToastComponent) { }
 
   ngOnInit() {
+    $.material.init();
+
     if (this.auth.loggedIn) {
       this.router.navigate(['/']);
     }

@@ -5,9 +5,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '../services/user.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
+declare const $: any;
+
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 
@@ -37,6 +40,8 @@ export class RegisterComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit() {
+    $.material.init();
+
     this.registerForm = this.formBuilder.group({
       username: this.username,
       email: this.email,
@@ -46,7 +51,7 @@ export class RegisterComponent implements OnInit {
   }
 
   setClassUsername() {
-    return { 'has-danger': !this.username.pristine && !this.username.valid };
+    // return { 'has-danger': !this.username.pristine && !this.username.valid };
   }
 
   setClassEmail() {

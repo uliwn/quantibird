@@ -1,8 +1,14 @@
 .alert {
-  bottom: 15px;
-  left: 25%;
+  top: 42px;
+  left: 0;
+  right: 0;
+  margin: auto;
   opacity: .9;
-  position: fixed;
-  width: 50%;
+  position: absolute;
+  width: 80%;
   z-index: 999;
+}
+
+.alert.alert-dismissible .close {
+  right: 0;
 }

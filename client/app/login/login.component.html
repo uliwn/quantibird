@@ -1,18 +1,38 @@
-<app-toast [message]="toast.message"></app-toast>
+<div class="main-content login">
+  <div class="container-fluid">
+    <div class="row">
 
-<div class="card">
-  <h4 class="card-header">Login</h4>
-  <div class="card-block">
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-      <div class="input-group" [ngClass]="setClassEmail()">
-        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-        <input class="form-control" type="email" name="email" formControlName="email" placeholder="Email" autofocus>
+      <div class="col-md-6">
+        <app-toast [message]="toast.message"></app-toast>
+
+        <div class="card card-stats">
+          <div class="card-header" data-background-color="blue">
+            <i class="material-icons">input</i>
+          </div>
+          <div class="card-content">
+            <a [routerLink]="['/register']" class="category">Haben Sie noch kein Konto?</a>
+            <h3 class="title">Login</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats col-md-8 col-sm-12 col-xs-12">
+              <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="input-group form-group label-floating is-empty" [ngClass]="{ 'has-danger': !this.email.pristine && !this.email.valid }">
+                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                  <label class="control-label">Email</label>
+                  <input class="form-control" type="email" name="email" formControlName="email" autofocus>
+                </div>
+                <div class="input-group form-group label-floating is-empty" [ngClass]="{ 'has-danger': !this.password.pristine && !this.password.valid }">
+                  <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                  <label class="control-label">Passwort</label>
+                  <input class="form-control" type="password" name="password" formControlName="password">
+                </div>
+                <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid"><i class="fa fa-sign-in"></i> Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="input-group" [ngClass]="setClassPassword()">
-        <span class="input-group-addon"><i class="fa fa-key"></i></span>
-        <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
-      </div>
-      <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid"><i class="fa fa-sign-in"></i> Login</button>
-    </form>
+
+    </div>
   </div>
 </div>
