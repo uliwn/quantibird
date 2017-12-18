@@ -7,13 +7,14 @@ declare interface RouteInfo {
     title: string;
     icon: string;
     class: string;
+    perm: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: 'login', title: 'Login',  icon: 'input', class: '' },
-    { path: 'logout', title: 'Logout',  icon: 'exit_to_app', class: '' },
-    { path: 'dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: 'account', title: 'Mein Profil',  icon: 'person', class: '' },
-    // { path: 'table-list', title: 'Table List',  icon: 'content_paste', class: '' },
+    { path: 'login', title: 'Login',  icon: 'input', class: '', perm: 'none' },
+    { path: 'logout', title: 'Logout',  icon: 'exit_to_app', class: '', perm: 'loggedIn' },
+    { path: 'dashboard', title: 'Dashboard',  icon: 'dashboard', class: '', perm: 'none' },
+    { path: 'account', title: 'Mein Profil',  icon: 'person', class: '', perm: 'loggedIn' },
+    { path: 'surveys', title: 'Surveys',  icon: 'content_paste', class: '', perm: 'loggedIn' },
     // { path: 'typography', title: 'Typography',  icon: 'library_books', class: '' },
     // { path: 'icons', title: 'Icons',  icon: 'bubble_chart', class: '' },
     // { path: 'maps', title: 'Maps',  icon: 'location_on', class: '' },
@@ -37,14 +38,11 @@ export class SidebarComponent implements OnInit {
   }
 
   checkPermissions(menuItem) {
-    if (menuItem.path === 'login' && this.auth.loggedIn) {
-      return false;
-    } else if (menuItem.path === 'logout' && !this.auth.loggedIn) {
-      return false;
-    } else if (menuItem.path === 'account' && !this.auth.loggedIn) {
+    if (!(menuItem.path === 'login' && this.auth.loggedIn)) {
+      return !(menuItem.perm === 'loggedIn' && !this.auth.loggedIn);
+    } else {
       return false;
     }
-    return true;
   }
 
   isMobileMenu() {
