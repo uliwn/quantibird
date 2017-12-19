@@ -2,71 +2,194 @@
 
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card" *ngIf="!isLoading">
-  <h4 class="card-header">Current cats ({{cats.length}})</h4>
-  <div class="card-block">
-    <table class="table table-bordered table-striped">
-      <thead class="thead-default">
-        <tr>
-          <th>Name</th>
-          <th>Age</th>
-          <th>Weight</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="cats.length === 0">
-        <tr>
-          <td colspan="4">There are no cats in the DB. Add a new cat below.</td>
-        </tr>  
-      </tbody>
-      <tbody *ngIf="!isEditing">
-        <tr *ngFor="let cat of cats">
-          <td>{{cat.name}}</td>
-          <td>{{cat.age}}</td>
-          <td>{{cat.weight}}</td>
-          <td>
-            <button class="btn btn-sm btn-warning" (click)="enableEditing(cat)"><i class="fa fa-pencil"></i> Edit</button> 
-            <button class="btn btn-sm btn-danger" (click)="deleteCat(cat)"><i class="fa fa-trash"></i> Delete</button>
-          </td>
-        </tr>  
-      </tbody>
-      <tbody *ngIf="isEditing">
-        <tr>
-          <td colspan="4">
-            <form class="form-inline" #form="ngForm" (ngSubmit)="editCat(cat)" style="display:inline">
-              <div class="form-group">
-                <input class="form-control" type="text" name="name" [(ngModel)]="cat.name" placeholder="Name" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="number" name="age" [(ngModel)]="cat.age" placeholder="Age" min="0" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="number" name="weight" [(ngModel)]="cat.weight" placeholder="Weight" step="any" min="0" required>
-              </div>
-              <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
-            </form>
-            <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
 
-<div class="card" *ngIf="!isEditing">
-  <h4 class="card-header">Add new cat</h4>
-  <div class="card-block">
-    <form class="form-inline" [formGroup]="addCatForm" (ngSubmit)="addCat()" style="text-align:center">
-      <div class="form-group">
-        <input class="form-control" type="text" name="name" formControlName="name" placeholder="Name">
+<div class="main-content surveys">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <div class="card" *ngIf="!isLoading">
+          <div class="card-header" data-background-color="green">
+            <h4 class="title">Meine Umfragen ({{cats.length}})</h4>
+            <p class="category"></p>
+          </div>
+          <div class="card-content">
+            <table class="table table-striped">
+              <thead class="thead-default">
+              <tr>
+                <th>Name</th>
+                <th>Beschreibung</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody *ngIf="cats.length === 0">
+              <tr>
+                <td colspan="4">Sie haben noch keine Umfragen erstellt.</td>
+              </tr>
+              </tbody>
+              <tbody *ngIf="!isEditing">
+              <tr *ngFor="let survey of cats">
+                <td>{{survey.name}}</td>
+                <td>{{survey.description}}</td>
+                <td>
+                  <button class="btn btn-sm btn-warning" (click)="enableEditing(survey)"><i class="fa fa-pencil"></i> Edit</button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteCat(survey)"><i class="fa fa-trash"></i> Delete</button>
+                </td>
+              </tr>
+              </tbody>
+              <tbody *ngIf="isEditing">
+              <tr>
+                <td colspan="4">
+                  <form class="form-inline" #form="ngForm" (ngSubmit)="editCat(survey)" style="display:inline">
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="name" [(ngModel)]="survey.name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="description" [(ngModel)]="survey.description" placeholder="Beschreibung" required>
+                    </div>
+                    <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
+                  </form>
+                  <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
-      <div class="form-group">
-        <input class="form-control" type="number" name="age" formControlName="age" placeholder="Age" min="0">
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="card" *ngIf="!isEditing">
+          <div class="card-header" data-background-color="green">
+            <h4>Add new Survey</h4>
+            <p class="category"></p>
+          </div>
+          <div class="card-content">
+            <form class="form-inline" [formGroup]="addCatForm" (ngSubmit)="addCat()">
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <input class="form-control" type="text" name="name" formControlName="name" placeholder="Name">
+                </div>
+                <div class="form-group col-md-6">
+                  <input class="form-control" name="description" formControlName="description" placeholder="Beschreibung">
+                </div>
+                <div class="col-md-2">
+                  <button class="btn btn-primary" type="submit" [disabled]="!addCatForm.valid"><i class="fa fa-floppy-o"></i> Add</button>
+                </div>
+              </div>
+            </form>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header" data-background-color="blue">
+                    <h4 class="title">Erfasste Fragen</h4>
+                    <p class="category">Fragen die in der Umfrage verwendet werden.</p>
+                  </div>
+                  <div class="card-content table-responsive">
+                    <table class="table">
+                      <thead class="text-danger">
+                      <tr>
+                        <th class="col-md-1">#</th>
+                        <th class="col-md-8">Name</th>
+                        <th class="col-md-3">Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let q of questions">
+                        <th scope="row">{{q.key}}</th>
+                        <td>{{q.title}}</td>
+                        <td>
+                          <button class="btn btn-sm btn-danger" (click)="deleteQuestion(q)"><i class="fa fa-trash"></i> Delete</button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Fragen Hinzufügen</h3>
+              </div>
+            </div>
+
+            <form class="form-inline" [formGroup]="addQuestionForm" (ngSubmit)="addQuestion()">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <input class="form-control" type="text" name="title" formControlName="title" placeholder="Question Title">
+                </div>
+                <div class="form-group col-md-4">
+                </div>
+                <div class="col-md-2">
+                  <button class="btn btn-primary" type="submit" [disabled]="!addQuestionForm.valid"><i class="fa fa-plus"></i> Add</button>
+                </div>
+              </div>
+            </form>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header" data-background-color="orange">
+                    <h4 class="title">Erfasste Antworten</h4>
+                    <p class="category">Mögliche Antworten für die Frage.</p>
+                  </div>
+                  <div class="card-content table-responsive">
+                    <table class="table">
+                      <thead class="text-danger">
+                      <tr>
+                        <th class="col-md-1">#</th>
+                        <th class="col-md-8">Name</th>
+                        <th class="col-md-3">Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let a of answers">
+                        <th scope="row">{{a.key}}</th>
+                        <td>{{a.title}}</td>
+                        <td>
+                          <button class="btn btn-sm btn-danger" (click)="deleteAnswer(a)"><i class="fa fa-trash"></i> Delete</button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Antworten Hinzufügen</h3>
+              </div>
+            </div>
+
+            <form class="form-inline" [formGroup]="addAnswerForm" (ngSubmit)="addAnswer()">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <input class="form-control" type="text" name="title" formControlName="title" placeholder="Answer Title">
+                </div>
+                <div class="form-group col-md-4">
+                </div>
+                <div class="col-md-2">
+                  <button class="btn btn-primary" type="submit" [disabled]="!addAnswerForm.valid"><i class="fa fa-plus"></i> Add</button>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+
       </div>
-      <div class="form-group">
-        <input class="form-control" type="number" name="weight" formControlName="weight" placeholder="Weight" step="any" min="0">
-      </div>
-      <button class="btn btn-primary" type="submit" [disabled]="!addCatForm.valid"><i class="fa fa-floppy-o"></i> Add</button>
-    </form>
+    </div>
+
   </div>
 </div>

@@ -1,5 +1,11 @@
-.table td,
-.table th {
-  text-align: center;
-  width: 25%;
+.surveys {
+  .table td,
+  .table th {
+    // text-align: center;
+    // width: 25%;
+  }
+
+  .form-control {
+    width: 80%;
+  }
 }

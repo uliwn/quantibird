@@ -1,6 +1,7 @@
 export class Cat {
   _id?: string;
   name?: string;
-  weight?: number;
-  age?: number;
+  description?: string;
+  questions?: any;
+  userId?: string;
 }

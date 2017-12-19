@@ -3,14 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Cat } from '../shared/models/cat.model';
+import { User } from '../shared/models/user.model';
 
 @Injectable()
 export class CatService {
 
   constructor(private http: HttpClient) { }
 
-  getCats(): Observable<Cat[]> {
+  getAllCats(): Observable<Cat[]> {
     return this.http.get<Cat[]>('/api/cats');
+  }
+
+  getCats(user: User): Observable<Cat[]> {
+    return this.http.get<Cat[]>(`/api/cats/${user._id}`);
   }
 
   countCats(): Observable<number> {
