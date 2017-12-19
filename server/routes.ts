@@ -1,25 +1,25 @@
 import * as express from 'express';
 
-import CatCtrl from './controllers/cat';
+import SurveyCtrl from './controllers/servey';
 import UserCtrl from './controllers/user';
-import Cat from './models/cat';
+import Survey from './models/survey';
 import User from './models/user';
 
 export default function setRoutes(app) {
 
   const router = express.Router();
 
-  const catCtrl = new CatCtrl();
+  const surveyCtrl = new SurveyCtrl();
   const userCtrl = new UserCtrl();
 
-  // Cats
-  router.route('/cats').get(catCtrl.getAll);
-  router.route('/cats/:userId').get(catCtrl.getByUser);
-  router.route('/cats/count').get(catCtrl.count);
-  router.route('/cat').post(catCtrl.insert);
-  router.route('/cat/:id').get(catCtrl.get);
-  router.route('/cat/:id').put(catCtrl.update);
-  router.route('/cat/:id').delete(catCtrl.delete);
+  // Survey
+  router.route('/surveys').get(surveyCtrl.getAll);
+  router.route('/surveys/:userId').get(surveyCtrl.getByUser);
+  router.route('/surveys/count').get(surveyCtrl.count);
+  router.route('/survey').post(surveyCtrl.insert);
+  router.route('/survey/:id').get(surveyCtrl.get);
+  router.route('/survey/:id').put(surveyCtrl.update);
+  router.route('/survey/:id').delete(surveyCtrl.delete);
 
   // Users
   router.route('/login').post(userCtrl.login);

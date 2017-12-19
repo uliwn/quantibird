@@ -11,7 +11,7 @@
 
         <div class="card" *ngIf="!isLoading">
           <div class="card-header" data-background-color="green">
-            <h4 class="title">Meine Umfragen ({{cats.length}})</h4>
+            <h4 class="title">Meine Umfragen ({{surveys.length}})</h4>
             <p class="category"></p>
           </div>
           <div class="card-content">
@@ -23,25 +23,25 @@
                 <th>Actions</th>
               </tr>
               </thead>
-              <tbody *ngIf="cats.length === 0">
+              <tbody *ngIf="surveys.length === 0">
               <tr>
                 <td colspan="4">Sie haben noch keine Umfragen erstellt.</td>
               </tr>
               </tbody>
               <tbody *ngIf="!isEditing">
-              <tr *ngFor="let survey of cats">
+              <tr *ngFor="let survey of surveys">
                 <td>{{survey.name}}</td>
                 <td>{{survey.description}}</td>
                 <td>
                   <button class="btn btn-sm btn-warning" (click)="enableEditing(survey)"><i class="fa fa-pencil"></i> Edit</button>
-                  <button class="btn btn-sm btn-danger" (click)="deleteCat(survey)"><i class="fa fa-trash"></i> Delete</button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteSurvey(survey)"><i class="fa fa-trash"></i> Delete</button>
                 </td>
               </tr>
               </tbody>
               <tbody *ngIf="isEditing">
               <tr>
                 <td colspan="4">
-                  <form class="form-inline" #form="ngForm" (ngSubmit)="editCat(survey)" style="display:inline">
+                  <form class="form-inline" #form="ngForm" (ngSubmit)="editSurvey(survey)" style="display:inline">
                     <div class="form-group">
                       <input class="form-control" type="text" name="name" [(ngModel)]="survey.name" placeholder="Name" required>
                     </div>
@@ -71,7 +71,7 @@
             <p class="category"></p>
           </div>
           <div class="card-content">
-            <form class="form-inline" [formGroup]="addCatForm" (ngSubmit)="addCat()">
+            <form class="form-inline" [formGroup]="addSurveyForm" (ngSubmit)="addSurvey()">
               <div class="row">
                 <div class="form-group col-md-4">
                   <input class="form-control" type="text" name="name" formControlName="name" placeholder="Name">
@@ -80,7 +80,7 @@
                   <input class="form-control" name="description" formControlName="description" placeholder="Beschreibung">
                 </div>
                 <div class="col-md-2">
-                  <button class="btn btn-primary" type="submit" [disabled]="!addCatForm.valid"><i class="fa fa-floppy-o"></i> Add</button>
+                  <button class="btn btn-primary" type="submit" [disabled]="!addSurveyForm.valid"><i class="fa fa-floppy-o"></i> Add</button>
                 </div>
               </div>
             </form>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { CatsComponent } from './cats/cats.component';
+import { SurveyComponent } from './survey/survey.component';
 import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -16,7 +16,7 @@ import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: AboutComponent },
-  { path: 'surveys', component: CatsComponent },
+  { path: 'surveys', component: SurveyComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },

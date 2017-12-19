@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { CatService } from '../services/cat.service';
+import { SurveyService } from '../services/survey.service';
 import { ToastComponent } from '../shared/toast/toast.component';
-import { Cat } from '../shared/models/cat.model';
+import { Survey } from '../shared/models/survey.model';
 import { AuthService } from '../services/auth.service';
 
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-cats',
-  templateUrl: './cats.component.html',
-  styleUrls: ['./cats.component.scss']
+  selector: 'app-survey',
+  templateUrl: './survey.component.html',
+  styleUrls: ['./survey.component.scss']
 })
-export class CatsComponent implements OnInit {
+export class SurveyComponent implements OnInit {
 
-  survey = new Cat();
-  cats: Cat[] = [];
+  survey = new Survey();
+  surveys: Survey[] = [];
   questions = [];
   answers = [];
   isLoading = true;
   isEditing = false;
 
-  addCatForm: FormGroup;
+  addSurveyForm: FormGroup;
   name = new FormControl('', Validators.required);
   description = new FormControl('', Validators.required);
 
@@ -32,14 +32,14 @@ export class CatsComponent implements OnInit {
   addAnswerForm: FormGroup;
   answerTitle = new FormControl('', Validators.required);
 
-  constructor(private catService: CatService,
+  constructor(private surveyService: SurveyService,
               private auth: AuthService,
               private formBuilder: FormBuilder,
               public toast: ToastComponent) { }
 
   ngOnInit() {
-    this.getCats();
-    this.addCatForm = this.formBuilder.group({
+    this.getSurveys();
+    this.addSurveyForm = this.formBuilder.group({
       name: this.name,
       description: this.description
     });
@@ -51,24 +51,24 @@ export class CatsComponent implements OnInit {
     });
   }
 
-  getCats() {
-    this.catService.getCats(this.auth.currentUser).subscribe(
-      data => this.cats = data,
+  getSurveys() {
+    this.surveyService.getSurveys(this.auth.currentUser).subscribe(
+      data => this.surveys = data,
       error => console.log(error),
       () => this.isLoading = false
     );
   }
 
-  addCat() {
-    const body = this.addCatForm.value;
+  addSurvey() {
+    const body = this.addSurveyForm.value;
     body.userId = this.auth.currentUser._id;
     body.questions = this.questions;
 
-    this.catService.addCat(body).subscribe(
+    this.surveyService.addSurvey(body).subscribe(
       res => {
-        this.cats.push(res);
+        this.surveys.push(res);
         this.questions = [];
-        this.addCatForm.reset();
+        this.addSurveyForm.reset();
         this.toast.setMessage('Survey added successfully.', 'success');
       },
       error => console.log(error)
@@ -92,36 +92,36 @@ export class CatsComponent implements OnInit {
     this.addAnswerForm.reset();
   }
 
-  enableEditing(cat: Cat) {
+  enableEditing(survey: Survey) {
     this.isEditing = true;
-    this.survey = cat;
+    this.survey = survey;
   }
 
   cancelEditing() {
     this.isEditing = false;
-    this.survey = new Cat();
+    this.survey = new Survey();
     this.toast.setMessage('item editing cancelled.', 'warning');
-    // reload the cats to reset the editing
-    this.getCats();
+    // reload the surveys to reset the editing
+    this.getSurveys();
   }
 
-  editCat(cat: Cat) {
-    this.catService.editCat(cat).subscribe(
+  editSurvey(survey: Survey) {
+    this.surveyService.editSurvey(survey).subscribe(
       () => {
         this.isEditing = false;
-        this.survey = cat;
+        this.survey = survey;
         this.toast.setMessage('item edited successfully.', 'success');
       },
       error => console.log(error)
     );
   }
 
-  deleteCat(cat: Cat) {
+  deleteSurvey(survey: Survey) {
     if (window.confirm('Are you sure you want to permanently delete this item?')) {
-      this.catService.deleteCat(cat).subscribe(
+      this.surveyService.deleteSurvey(survey).subscribe(
         () => {
-          const pos = this.cats.map(elem => elem._id).indexOf(cat._id);
-          this.cats.splice(pos, 1);
+          const pos = this.surveys.map(elem => elem._id).indexOf(survey._id);
+          this.surveys.splice(pos, 1);
           this.toast.setMessage('item deleted successfully.', 'success');
         },
         error => console.log(error)

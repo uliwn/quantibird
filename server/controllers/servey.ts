@@ -1,8 +1,8 @@
-import Cat from '../models/cat';
+import Survey from '../models/survey';
 import BaseCtrl from './base';
 
-export default class CatCtrl extends BaseCtrl {
-  model = Cat;
+export default class SurveyCtrl extends BaseCtrl {
+  model = Survey;
 
   getByUser = (req, res) => {
     this.model.find({ userId: req.params.userId }, (err, item) => {

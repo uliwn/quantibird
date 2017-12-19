@@ -1,4 +1,4 @@
-export class Cat {
+export class Survey {
   _id?: string;
   name?: string;
   description?: string;
