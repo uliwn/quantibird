@@ -1,6 +1,7 @@
 import * as express from 'express';
 
-import SurveyCtrl from './controllers/servey';
+import SurveyCtrl from './controllers/survey';
+import SurveyResultCtrl from './controllers/surveyResult';
 import UserCtrl from './controllers/user';
 import Survey from './models/survey';
 import User from './models/user';
@@ -10,6 +11,7 @@ export default function setRoutes(app) {
   const router = express.Router();
 
   const surveyCtrl = new SurveyCtrl();
+  const surveyResultCtrl = new SurveyResultCtrl();
   const userCtrl = new UserCtrl();
 
   // Survey
@@ -20,6 +22,10 @@ export default function setRoutes(app) {
   router.route('/survey/:id').get(surveyCtrl.get);
   router.route('/survey/:id').put(surveyCtrl.update);
   router.route('/survey/:id').delete(surveyCtrl.delete);
+
+  // Survey Result
+  router.route('/results').get(surveyResultCtrl.getAll);
+  router.route('/result').post(surveyResultCtrl.insert);
 
   // Users
   router.route('/login').post(userCtrl.login);
