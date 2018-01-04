@@ -1,6 +1,5 @@
-<div class="card" *ngIf="condition">
-  <h4 class="card-header">Loading...</h4>
-  <div class="card-block text-xs-center">
-    <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
-  </div>
+<div class="loader" *ngIf="condition">
+  <svg class="circular" viewBox="25 25 50 50">
+    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+  </svg>
 </div>
