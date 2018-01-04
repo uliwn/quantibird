@@ -14,9 +14,8 @@ export const ROUTES: RouteInfo[] = [
     { path: 'logout', title: 'Logout',  icon: 'exit_to_app', class: '', perm: 'loggedIn' },
     { path: 'dashboard', title: 'Dashboard',  icon: 'dashboard', class: '', perm: 'none' },
     { path: 'account', title: 'Mein Profil',  icon: 'person', class: '', perm: 'loggedIn' },
-    { path: 'surveys', title: 'Surveys',  icon: 'content_paste', class: '', perm: 'loggedIn' },
-    // { path: 'typography', title: 'Typography',  icon: 'library_books', class: '' },
-    // { path: 'icons', title: 'Icons',  icon: 'bubble_chart', class: '' },
+    { path: 'surveys', title: 'Umfragen',  icon: 'content_paste', class: '', perm: 'loggedIn' },
+    { path: 'survey/create', title: 'Umfrage erstellen',  icon: 'library_books', class: '', perm: 'loggedIn' }
     // { path: 'maps', title: 'Maps',  icon: 'location_on', class: '' },
     // { path: 'notifications', title: 'Notifications',  icon: 'notifications', class: '' }
 ];

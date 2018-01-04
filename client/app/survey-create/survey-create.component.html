@@ -1,0 +1,163 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+
+<div class="main-content survey-create">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="card" *ngIf="!isEditing">
+          <div class="card-header" data-background-color="blue">
+            <h4>Umfrage</h4>
+            <p class="category">Eine neue Umfrage erstellen.</p>
+          </div>
+          <div class="card-content">
+
+            <form class="survey-form" [formGroup]="addSurveyForm" (ngSubmit)="addSurvey()">
+              <div class="row">
+                <div class="col-md-2 pull-right">
+                  <button class="btn btn-primary" type="submit"
+                          [disabled]="!addSurveyForm.valid">
+                    <i class="fa fa-floppy-o"></i> Speichern
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group form-black label-floating is-empty">
+                    <label class="control-label">Name</label>
+                    <input type="text" class="form-control" name="name" formControlName="name" required>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group form-black label-floating is-empty">
+                    <label class="control-label">Beischreibung</label>
+                    <input type="text" class="form-control" name="description" formControlName="description" required>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Fragen erstellen</h3>
+              </div>
+            </div>
+
+            <form class="" [formGroup]="addQuestionForm" (ngSubmit)="addQuestion()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group form-black label-floating is-empty">
+                    <label class="control-label">Frage (Titel)</label>
+                    <input type="text" class="form-control" name="title" formControlName="title" required>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                </div>
+                <div class="col-md-2">
+                  <button class="btn btn-primary" type="submit"
+                          [disabled]="!addQuestionForm.valid">
+                    <i class="fa fa-plus"></i> Hinzufügen</button>
+                </div>
+              </div>
+            </form>
+
+            <div class="row ">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header" data-background-color="blue">
+                    <h4 class="title">Erfasste Fragen</h4>
+                    <p class="category">Fragen die in der Umfrage verwendet werden.</p>
+                  </div>
+                  <div class="card-content table-responsive">
+                    <table class="table">
+                      <thead class="text-danger">
+                      <tr>
+                        <th class="col-md-1">#</th>
+                        <th class="col-md-8">Name</th>
+                        <th class="col-md-3">Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let q of questions">
+                        <th scope="row">{{q.key}}</th>
+                        <td>{{q.title}}</td>
+                        <td>
+                          <button class="btn btn-sm btn-danger" (click)="deleteQuestion(q)"><i class="fa fa-trash"></i> Delete</button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Antwort erstellen</h3>
+              </div>
+            </div>
+
+            <form class="" [formGroup]="addAnswerForm" (ngSubmit)="addAnswer()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group form-black label-floating is-empty">
+                    <label class="control-label">Antwort (Titel)</label>
+                    <input type="text" class="form-control" name="title" formControlName="title" required>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                </div>
+                <div class="col-md-2">
+                  <button class="btn btn-primary" type="submit"
+                          [disabled]="!addAnswerForm.valid">
+                    <i class="fa fa-plus"></i> Hinzufügen</button>
+                </div>
+              </div>
+            </form>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header" data-background-color="blue">
+                    <h4 class="title">Erfasste Antworten</h4>
+                    <p class="category">Mögliche Antworten für die Frage.</p>
+                  </div>
+                  <div class="card-content table-responsive">
+                    <table class="table">
+                      <thead class="text-danger">
+                      <tr>
+                        <th class="col-md-1">#</th>
+                        <th class="col-md-8">Name</th>
+                        <th class="col-md-3">Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let a of answers">
+                        <th scope="row">{{a.key}}</th>
+                        <td>{{a.title}}</td>
+                        <td>
+                          <button class="btn btn-sm btn-danger" (click)="deleteAnswer(a)"><i class="fa fa-trash"></i> Delete</button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
