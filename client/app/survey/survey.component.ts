@@ -17,38 +17,22 @@ export class SurveyComponent implements OnInit {
 
   survey = new Survey();
   surveys: Survey[] = [];
-  questions = [];
-  answers = [];
+
   isLoading = true;
   isEditing = false;
 
-  addSurveyForm: FormGroup;
   name = new FormControl('', Validators.required);
   description = new FormControl('', Validators.required);
 
-  addQuestionForm: FormGroup;
-  questionTitle = new FormControl('', Validators.required);
-
-  addAnswerForm: FormGroup;
-  answerTitle = new FormControl('', Validators.required);
 
   constructor(private surveyService: SurveyService,
               private auth: AuthService,
               private formBuilder: FormBuilder,
               public toast: ToastComponent) { }
 
+
   ngOnInit() {
     this.getSurveys();
-    this.addSurveyForm = this.formBuilder.group({
-      name: this.name,
-      description: this.description
-    });
-    this.addQuestionForm = this.formBuilder.group({
-      title: this.questionTitle
-    });
-    this.addAnswerForm = this.formBuilder.group({
-      title: this.answerTitle
-    });
   }
 
   getSurveys() {
@@ -59,38 +43,6 @@ export class SurveyComponent implements OnInit {
     );
   }
 
-  addSurvey() {
-    const body = this.addSurveyForm.value;
-    body.userId = this.auth.currentUser._id;
-    body.questions = this.questions;
-
-    this.surveyService.addSurvey(body).subscribe(
-      res => {
-        this.surveys.push(res);
-        this.questions = [];
-        this.addSurveyForm.reset();
-        this.toast.setMessage('Survey added successfully.', 'success');
-      },
-      error => console.log(error)
-    );
-  }
-
-  addQuestion() {
-    const question = this.addQuestionForm.value;
-    question.key = this.questions.length;
-    question.answers = _.clone(this.answers);
-    this.questions.push(question);
-
-    this.addQuestionForm.reset();
-  }
-
-  addAnswer() {
-    const answer = this.addAnswerForm.value;
-    answer.key = this.answers.length;
-    this.answers.push(answer);
-
-    this.addAnswerForm.reset();
-  }
 
   enableEditing(survey: Survey) {
     this.isEditing = true;
@@ -127,14 +79,6 @@ export class SurveyComponent implements OnInit {
         error => console.log(error)
       );
     }
-  }
-
-  deleteQuestion(question) {
-    _.remove(this.questions, q => q.key === question.key);
-  }
-
-  deleteAnswer(answer) {
-    _.remove(this.answers, a => a.key === answer.key);
   }
 
 }
