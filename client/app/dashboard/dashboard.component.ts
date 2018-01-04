@@ -4,10 +4,10 @@ import * as Chartist from 'chartist';
 declare const $: any;
 
 @Component({
-  selector: 'app-about',
-  templateUrl: './about.component.html'
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html'
 })
-export class AboutComponent implements OnInit {
+export class DashboardComponent implements OnInit {
 
   constructor() { }
 
