@@ -12,6 +12,8 @@
             <p class="category">Complete your profile</p>
           </div>
           <div class="card-content">
+            <app-loading [condition]="isLoading"></app-loading>
+
             <form #accountForm="ngForm" (ngSubmit)="save(user)">
               <div class="row">
                 <div class="col-md-4">
@@ -112,4 +114,5 @@
       </div>
     </div>
   </div>
+
 </div>

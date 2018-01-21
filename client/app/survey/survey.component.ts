@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 import { SurveyService } from '../services/survey.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { Survey } from '../shared/models/survey.model';
@@ -27,6 +27,7 @@ export class SurveyComponent implements OnInit {
 
   constructor(private surveyService: SurveyService,
               private auth: AuthService,
+              private router: Router,
               private formBuilder: FormBuilder,
               public toast: ToastComponent) { }
 
@@ -43,6 +44,9 @@ export class SurveyComponent implements OnInit {
     );
   }
 
+  showResult(survey) {
+    this.router.navigate(['/survey/result', survey._id]);
+  }
 
   enableEditing(survey: Survey) {
     this.isEditing = true;

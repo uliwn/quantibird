@@ -18,12 +18,15 @@ import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ComponentsModule } from './components/components.module';
+import { SurveyResultComponent } from './survey-result/survey-result.component';
+import { SurveyResultService } from './services/survey-result.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     SurveyComponent,
     SurveyCreateComponent,
+    SurveyResultComponent,
     DashboardComponent,
     RegisterComponent,
     LoginComponent,
@@ -42,6 +45,7 @@ import { ComponentsModule } from './components/components.module';
     AuthGuardLogin,
     AuthGuardAdmin,
     SurveyService,
+    SurveyResultService,
     UserService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

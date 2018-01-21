@@ -13,7 +13,7 @@
             <p class="category"></p>
           </div>
           <div class="card-content">
-            <table class="table">
+            <table class="table table-hover">
               <thead class="thead-default">
               <tr>
                 <th>Name</th>
@@ -27,7 +27,7 @@
               </tr>
               </tbody>
               <tbody>
-              <tr *ngFor="let survey of surveys">
+              <tr *ngFor="let survey of surveys" (click)="showResult(survey)">
                 <td>{{survey.name}}</td>
                 <td>{{survey.description}}</td>
                 <td>

@@ -26,6 +26,8 @@ export default function setRoutes(app) {
   // Survey Result
   router.route('/results').get(surveyResultCtrl.getAll);
   router.route('/result').post(surveyResultCtrl.insert);
+  router.route('/result/:id').get(surveyResultCtrl.get);
+  router.route('/result/survey/:surveyId').get(surveyResultCtrl.getBySurvey);
 
   // Users
   router.route('/login').post(userCtrl.login);

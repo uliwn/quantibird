@@ -20,6 +20,7 @@ export class SurveyCreateComponent implements OnInit {
   questions = [];
   answers = [];
   isEditing = false;
+  isLoading = false;
 
   addSurveyForm: FormGroup;
   name = new FormControl('', Validators.required);
@@ -51,7 +52,9 @@ export class SurveyCreateComponent implements OnInit {
     });
   }
 
-  addSurvey() {
+  saveSurvey() {
+    this.isLoading = true;
+
     const body = this.addSurveyForm.value;
     body.userId = this.auth.currentUser._id;
     body.questions = this.questions;
@@ -63,7 +66,11 @@ export class SurveyCreateComponent implements OnInit {
         this.addSurveyForm.reset();
         this.toast.setMessage('Survey added successfully.', 'success');
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+        this.isLoading = false;
+      },
+      () => this.isLoading = false
     );
   }
 

@@ -13,12 +13,14 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
+import {SurveyResultComponent} from './survey-result/survey-result.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'surveys', component: SurveyComponent },
   { path: 'survey/create', component: SurveyCreateComponent },
+  { path: 'survey/result/:id', component: SurveyResultComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },

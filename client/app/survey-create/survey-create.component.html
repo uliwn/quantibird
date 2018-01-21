@@ -1,4 +1,5 @@
 <app-toast [message]="toast.message"></app-toast>
+<app-loading [condition]="isLoading"></app-loading>
 
 <div class="main-content survey-create">
   <div class="container-fluid">
@@ -13,11 +14,11 @@
           </div>
           <div class="card-content">
 
-            <form class="survey-form" [formGroup]="addSurveyForm" (ngSubmit)="addSurvey()">
+            <form class="survey-form" [formGroup]="addSurveyForm" (ngSubmit)="saveSurvey()">
               <div class="row">
                 <div class="col-md-2 pull-right">
                   <button class="btn btn-primary" type="submit"
-                          [disabled]="!addSurveyForm.valid">
+                          [disabled]="!addSurveyForm.valid || isLoading">
                     <i class="fa fa-floppy-o"></i> Speichern
                   </button>
                 </div>

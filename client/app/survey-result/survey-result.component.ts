@@ -1,40 +1,63 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {SurveyResultService} from '../services/survey-result.service';
+import {SurveyResult} from '../shared/models/survey-result.model';
 import * as Chartist from 'chartist';
+import * as _ from 'lodash';
 
 declare const $: any;
 
 @Component({
   selector: 'app-survey-result',
-  templateUrl: './dashboard.component.html'
+  templateUrl: './survey-result.component.html',
+  styleUrls: ['./survey-result.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class SurveyResultComponent implements OnInit {
 
-  constructor() { }
+  isLoading = false;
+  surveyResults: SurveyResult[] = [];
+  questionResults: any = [];
+
+  constructor(private route: ActivatedRoute, private surveyResultService: SurveyResultService) {
+    this.route.params.subscribe( params => {
+      this.surveyResultService.getSurveyResult(params.id).subscribe(
+        data => {
+          this.surveyResults = data;
+          this.onUpdate();
+        },
+        error => console.log(error),
+        () => this.isLoading = false
+      );
+    });
+  }
+
+  onUpdate() {
+    console.log(this.surveyResults);
+
+    this.questionResults = [];
+
+    _.each(this.surveyResults, (sr) => {
+
+      _.each(sr.questions, (q, i) => {
+        let qr = this.questionResults[i];
+        if (!qr) {
+          qr = {};
+          qr.id = `chart${i}`;
+          qr.title = q.title;
+          qr.answerGroup = [];
+          this.questionResults[i] = qr;
+        }
+        qr.answerGroup.push(q.answers);
+      });
+    });
+
+    console.log('questionResults', this.questionResults);
+  }
 
   ngOnInit() {
     $.material.init();
 
-    /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
-    const dataDailySalesChart: any = {
-      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-      series: [
-        [12, 17, 7, 17, 23, 18, 38]
-      ]
-    };
-
-    const optionsDailySalesChart: any = {
-      lineSmooth: Chartist.Interpolation.cardinal({
-        tension: 0
-      }),
-      low: 0,
-      high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-      chartPadding: { top: 0, right: 0, bottom: 0, left: 0},
-    };
-
-    const dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
-
-    this.startAnimationForLineChart(dailySalesChart);
 
 
     /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
@@ -55,10 +78,10 @@ export class DashboardComponent implements OnInit {
       chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
     };
 
-    const completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+    // const completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
 
     // start animation for the Completed Tasks Chart - Line Chart
-    this.startAnimationForLineChart(completedTasksChart);
+    // this.startAnimationForLineChart(completedTasksChart);
 
 
 
@@ -89,11 +112,11 @@ export class DashboardComponent implements OnInit {
         }
       }]
     ];
-    const emailsSubscriptionChart = new Chartist.Bar('#emailsSubscriptionChart',
-      dataEmailsSubscriptionChart, optionsEmailsSubscriptionChart, responsiveOptions);
+    // const emailsSubscriptionChart = new Chartist.Bar('#emailsSubscriptionChart',
+    //  dataEmailsSubscriptionChart, optionsEmailsSubscriptionChart, responsiveOptions);
 
     // start animation for the Emails Subscription Chart
-    this.startAnimationForBarChart(emailsSubscriptionChart);
+    // this.startAnimationForBarChart(emailsSubscriptionChart);
   }
 
   startAnimationForLineChart(chart) {

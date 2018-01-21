@@ -1,4 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+
+$ct-series-colors: (
+  rgba(97, 136, 226, 1),
+  rgba(97, 136, 226, .8),
+  rgba(97, 136, 226, .6),
+  rgba(97, 136, 226, .4),
+  rgba(97, 136, 226, .2),
+  rgba(97, 136, 226, .1),
+  #6188e2,
+  #6188e2,
+  #6188e2,
+  #6188e2,
+  #6188e2,
+  #6188e2,
+  #6188e2,
+  #6188e2,
+  #a748ca
+) !default;
+
 @import "assets/sass/material/material-dashboard";
 
 body {
@@ -10,7 +29,7 @@ body {
   margin-bottom: 15px;
 }
 
-.main-panel .main-content .card{
+.main-panel .main-content .card {
   animation-duration: 750ms;
   opacity: 0;
   animation-name: fadeIn;
@@ -25,4 +44,10 @@ body {
   to {
     opacity: 1;
   }
+}
+
+.survey-result .ct-label {
+  font-size: 2rem;
+  font-weight: 400;
+  fill: rgba(0, 0, 0, .8);
 }
