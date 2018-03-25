@@ -4,10 +4,15 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
+import * as cors from 'cors';
 
 import setRoutes from './routes';
 
 const app = express();
+
+// TODO disable for production!
+app.use(cors());
+
 dotenv.load({ path: '.env' });
 app.set('port', (process.env.PORT || 3000));
 
