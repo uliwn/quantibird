@@ -37,11 +37,11 @@ export class PieChartResultComponent implements OnInit {
       });
     });
 
-    const dataDailySalesChart: any = {
+    const chartData: any = {
       series,
     };
 
-    const optionsDailySalesChart: any = {
+    const options: any = {
       lineSmooth: Chartist.Interpolation.cardinal({
         tension: 0
       }),
@@ -50,7 +50,7 @@ export class PieChartResultComponent implements OnInit {
     };
 
     setTimeout(() => {
-      const dailySalesChart = new Chartist.Pie(`#${this.chartid}`, dataDailySalesChart, optionsDailySalesChart);
+      const dailySalesChart = new Chartist.Pie(`#${this.chartid}`, chartData, options);
     }, 0);
   }
 

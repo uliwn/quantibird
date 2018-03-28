@@ -131,6 +131,10 @@ export class SurveyCreateComponent implements OnInit {
     _.remove(this.questions, q => q.key === question.key);
   }
 
+  editAnswer(answer) {
+    this.addAnswerForm.setValue({title: answer.title});
+  }
+
   deleteAnswer(answer) {
     _.remove(this.answers, a => a.key === answer.key);
   }

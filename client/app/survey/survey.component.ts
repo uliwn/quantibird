@@ -48,9 +48,11 @@ export class SurveyComponent implements OnInit {
     this.router.navigate(['/survey/result', survey._id]);
   }
 
-  enableEditing(survey: Survey) {
+  enableEditing(survey: Survey, e: Event) {
     this.isEditing = true;
     this.survey = survey;
+
+    e.stopPropagation();
   }
 
   cancelEditing() {
@@ -72,7 +74,7 @@ export class SurveyComponent implements OnInit {
     );
   }
 
-  deleteSurvey(survey: Survey) {
+  deleteSurvey(survey: Survey, e: Event) {
     if (window.confirm('Are you sure you want to permanently delete this item?')) {
       this.surveyService.deleteSurvey(survey).subscribe(
         () => {
@@ -83,6 +85,7 @@ export class SurveyComponent implements OnInit {
         error => console.log(error)
       );
     }
+    e.stopPropagation();
   }
 
 }
