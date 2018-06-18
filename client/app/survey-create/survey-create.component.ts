@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 import { SurveyService } from '../services/survey.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { Survey } from '../shared/models/survey.model';
@@ -8,12 +8,15 @@ import { AuthService } from '../services/auth.service';
 
 import * as _ from 'lodash';
 
+declare const $: any;
+
 @Component({
   selector: 'app-survey-create',
   templateUrl: './survey-create.component.html',
   styleUrls: ['./survey-create.component.scss']
 })
 export class SurveyCreateComponent implements OnInit {
+  @Input() data: Survey;
 
   survey = new Survey();
   surveys: Survey[] = [];
@@ -28,18 +31,25 @@ export class SurveyCreateComponent implements OnInit {
 
   addQuestionForm: FormGroup;
   questionTitle = new FormControl('', Validators.required);
+  questionCount = 0;
 
   addAnswerForm: FormGroup;
   answerTitle = new FormControl('', Validators.required);
+  answerCount = 0;
+
+  editValue = null;
 
 
   constructor(private surveyService: SurveyService,
               private auth: AuthService,
+              private router: Router,
               private formBuilder: FormBuilder,
               public toast: ToastComponent) { }
 
 
   ngOnInit() {
+    $.material.init();
+
     this.addSurveyForm = this.formBuilder.group({
       name: this.name,
       description: this.description
@@ -50,6 +60,10 @@ export class SurveyCreateComponent implements OnInit {
     this.addAnswerForm = this.formBuilder.group({
       title: this.answerTitle
     });
+
+    if (this.data) {
+      this.questions = this.data.questions;
+    }
   }
 
   saveSurvey() {
@@ -64,7 +78,8 @@ export class SurveyCreateComponent implements OnInit {
         this.surveys.push(res);
         this.questions = [];
         this.addSurveyForm.reset();
-        this.toast.setMessage('Survey added successfully.', 'success');
+        this.toast.setMessage('Umfrage erfolgreich erstellt.', 'success');
+        this.router.navigate(['/surveys']);
       },
       error => {
         console.log(error);
@@ -76,8 +91,8 @@ export class SurveyCreateComponent implements OnInit {
 
   addQuestion() {
     const question = this.addQuestionForm.value;
-    question.key = this.questions.length;
-    question.answers = _.clone(this.answers);
+    question.key = this.questionCount++;
+    question.answers = _.cloneDeep(this.answers);
     this.questions.push(question);
 
     this.addQuestionForm.reset();
@@ -85,7 +100,7 @@ export class SurveyCreateComponent implements OnInit {
 
   addAnswer() {
     const answer = this.addAnswerForm.value;
-    answer.key = this.answers.length;
+    answer.key = this.answerCount++;
     this.answers.push(answer);
 
     this.addAnswerForm.reset();
@@ -135,8 +150,20 @@ export class SurveyCreateComponent implements OnInit {
     this.addAnswerForm.setValue({title: answer.title});
   }
 
+  setEditValue(value) {
+    this.editValue = value;
+  }
+
   deleteAnswer(answer) {
     _.remove(this.answers, a => a.key === answer.key);
+  }
+
+  deleteAnswerInQuestion(question, answer) {
+    _.remove(question.answers, (a: any) => a.key === answer.key);
+  }
+
+  showMessage() {
+    this.toast.setMessage('Umfrage erfolgreich erstellt', 'success');
   }
 
 }

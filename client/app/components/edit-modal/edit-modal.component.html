@@ -1,0 +1,25 @@
+<div class="modal fade" id="{{modalid}}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Edit</h4>
+      </div>
+      <form class="" [formGroup]="editModalForm" (ngSubmit)="setValue()">
+        <div class="modal-body">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group form-black label-floating is-empty">
+                  <input type="text" class="form-control" name="title" formControlName="title" required>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Übernemmen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

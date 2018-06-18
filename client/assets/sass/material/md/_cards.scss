@@ -206,7 +206,7 @@
     }
 
     [data-background-color="blue"]{
-        background: linear-gradient(60deg, $cyan-400, $cyan-600);
+        background: linear-gradient(60deg, $cyan-900, $cyan-600);
         @include shadow-big-color($brand-info);
     }
 

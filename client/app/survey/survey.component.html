@@ -33,11 +33,11 @@
                 <td>
                   <button class="btn btn-sm btn-warning"
                           (click)="enableEditing(survey, $event)">
-                    <i class="fa fa-pencil"></i> Edit
+                    <i class="fa fa-pencil"></i>
                   </button>
                   <button class="btn btn-sm btn-danger"
                           (click)="deleteSurvey(survey, $event)">
-                    <i class="fa fa-trash"></i> Delete
+                    <i class="fa fa-trash"></i>
                   </button>
                 </td>
               </tr>
@@ -50,9 +50,9 @@
 
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="isEditing">
       <div class="col-md-12">
-        <div class="card" *ngIf="isEditing">
+        <div class="card">
           <div class="card-content">
             <form class="" #form="ngForm" (ngSubmit)="editSurvey(survey)" style="display:inline">
 
@@ -72,6 +72,8 @@
           </div>
         </div>
       </div>
+
+      <app-survey-create [data]="survey"></app-survey-create>
     </div>
 
   </div>

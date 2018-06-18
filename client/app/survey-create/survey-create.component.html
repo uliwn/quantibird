@@ -16,7 +16,6 @@
 
             <form class="survey-form" [formGroup]="addSurveyForm" (ngSubmit)="saveSurvey()">
 
-
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group form-black label-floating is-empty">
@@ -34,34 +33,60 @@
                 </div>
               </div>
 
-              <div class="row ">
+              <!--div class="row">
+                <div class="col-md-12">
+                  <h3>Antwort erstellen</h3>
+                </div>
+              </div-->
+
+              <form class="" [formGroup]="addAnswerForm" (ngSubmit)="addAnswer()">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group form-black label-floating is-empty">
+                      <label class="control-label">Antwort (Titel)</label>
+                      <input type="text" class="form-control" name="title" formControlName="title" required>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <button class="btn btn-primary" type="submit"
+                            [disabled]="!addAnswerForm.valid">
+                      <i class="fa fa-plus with-label"></i> Antwort Hinzufügen</button>
+                  </div>
+                </div>
+              </form>
+
+              <div class="row">
                 <div class="col-md-12">
                   <div class="card">
                     <div class="card-header" data-background-color="blue">
-                      <h4 class="title">Erfasste Fragen</h4>
-                      <p class="category">Fragen die in der Umfrage verwendet werden.</p>
+                      <h4 class="title">Erfasste Antworten</h4>
+                      <p class="category">Mögliche Antworten für die Frage.</p>
                     </div>
                     <div class="card-content table-responsive">
                       <table class="table">
                         <thead class="text-info">
                         <tr>
                           <th class="col-md-1">#</th>
-                          <th class="col-md-6">Name</th>
-                          <th class="col-md-2">Antworten</th>
-                          <th class="col-md-3">Actions</th>
+                          <th class="col-md-9">Titel</th>
+                          <th class="col-md-2">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let q of questions">
-                          <th scope="row">{{q.key}}</th>
-                          <td>{{q.title}}</td>
-                          <td>{{q.answers.length}}</td>
+                        <tr *ngFor="let a of answers">
+                          <th scope="row">{{a.key}}</th>
+                          <td>{{a.title}}</td>
                           <td>
-                            <!--<button class="btn btn-sm btn-warning"-->
-                                    <!--(click)="editQuestion(q)">-->
-                              <!--<i class="fa fa-pencil"></i> Edit</button>-->
+                            <button type="button"
+                                    class="btn btn-sm btn-warning"
+                                    data-toggle="modal" data-target="#myModal"
+                                    (click)="setEditValue(a)">
+                                <i class="fa fa-pencil"></i></button>
                             <button class="btn btn-sm btn-danger"
-                                    (click)="deleteQuestion(q)"><i class="fa fa-trash"></i> Delete</button>
+                                    (click)="deleteAnswer(a)"><i class="fa fa-trash"></i></button>
                           </td>
                         </tr>
                         </tbody>
@@ -71,11 +96,11 @@
                 </div>
               </div>
 
-              <div class="row">
+              <!--div class="row">
                 <div class="col-md-12">
                   <h3>Fragen erstellen</h3>
                 </div>
-              </div>
+              </div-->
 
               <form class="" [formGroup]="addQuestionForm" (ngSubmit)="addQuestion()">
                 <div class="row">
@@ -90,83 +115,78 @@
 
                 </div>
 
-
-                <div class="row">
-                  <div class="col-md-12">
-                    <h3>Antwort erstellen</h3>
-                  </div>
-                </div>
-
-                <form class="" [formGroup]="addAnswerForm" (ngSubmit)="addAnswer()">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group form-black label-floating is-empty">
-                        <label class="control-label">Antwort (Titel)</label>
-                        <input type="text" class="form-control" name="title" formControlName="title" required>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-3">
-                      <button class="btn btn-primary" type="submit"
-                              [disabled]="!addAnswerForm.valid">
-                        <i class="fa fa-plus"></i> Antwort Hinzufügen</button>
-                    </div>
-                  </div>
-                </form>
-
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="card">
-                      <div class="card-header" data-background-color="blue">
-                        <h4 class="title">Erfasste Antworten</h4>
-                        <p class="category">Mögliche Antworten für die Frage.</p>
-                      </div>
-                      <div class="card-content table-responsive">
-                        <table class="table">
-                          <thead class="text-info">
-                          <tr>
-                            <th class="col-md-1">#</th>
-                            <th class="col-md-8">Titel</th>
-                            <th class="col-md-3">Actions</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr *ngFor="let a of answers">
-                            <th scope="row">{{a.key}}</th>
-                            <td>{{a.title}}</td>
-                            <td>
-                              <!--<button class="btn btn-sm btn-warning"-->
-                                      <!--(click)="editAnswer(a)">-->
-                                <!--<i class="fa fa-pencil"></i> Edit</button>-->
-                              <button class="btn btn-sm btn-danger"
-                                      (click)="deleteAnswer(a)"><i class="fa fa-trash"></i> Delete</button>
-                            </td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
                 <div class="row">
                   <div class="col-md-2">
                     <button class="btn btn-primary" type="submit"
                             [disabled]="!addQuestionForm.valid">
-                      <i class="fa fa-plus"></i> Frage Hinzufügen</button>
+                      <i class="fa fa-plus with-label"></i> Frage Hinzufügen</button>
                   </div>
                 </div>
-
               </form>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header" data-background-color="blue">
+                      <h4 class="title">Erfasste Fragen</h4>
+                      <p class="category">Fragen die in der Umfrage verwendet werden.</p>
+                    </div>
+                    <div class="card-content table-responsive">
+                      <table class="table">
+                        <thead class="text-info">
+                        <tr>
+                          <th class="col-md-1">#</th>
+                          <th class="col-md-4">Name</th>
+                          <th class="col-md-5">Antworten</th>
+                          <th class="col-md-2">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let q of questions">
+                          <th scope="row">{{q.key+1}}</th>
+                          <td>{{q.title}}</td>
+                          <td class="">
+                            <div *ngFor="let a of q.answers">
+                              <button type="button"
+                                      (click)="deleteAnswerInQuestion(q, a)"
+                                      rel="tooltip"
+                                      title="Delete"
+                                      class="btn btn-primary btn-simple btn-xs icon-action">
+                                <i class="material-icons">delete</i>
+                              </button>
+                              <button type="button"
+                                      rel="tooltip"
+                                      (click)="setEditValue(a)"
+                                      data-toggle="modal" data-target="#myModal"
+                                      title="Edit"
+                                      class="btn btn-primary btn-simple btn-xs icon-action">
+                                <i class="material-icons">edit</i>
+                              </button>
+                              <span class="answer-label">{{a.title}}</span>
+                            </div>
+                            <span *ngIf="!q.answers.length">0</span>
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-sm btn-warning"
+                                    (click)="setEditValue(q)"
+                                    data-toggle="modal" data-target="#myModal">
+                              <i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-sm btn-danger"
+                                    (click)="deleteQuestion(q)"><i class="fa fa-trash"></i></button>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div class="row">
                 <div class="col-md-3 pull-right">
                   <button class="btn btn-primary" type="submit"
                           [disabled]="!addSurveyForm.valid || isLoading">
-                    <i class="fa fa-floppy-o"></i> Umfrage Speichern
+                    <i class="fa fa-floppy-o with-label"></i> Umfrage Speichern
                   </button>
                 </div>
               </div>
@@ -181,3 +201,5 @@
 
   </div>
 </div>
+
+<app-edit-modal *ngIf="editValue" modalid="myModal" [editValue]="editValue"></app-edit-modal>

@@ -11,9 +11,21 @@
   }
 
   .btn {
-    i {
-      padding-right: 8px;
+    i.with-label {
+      padding-right: 4px;
     }
+  }
+
+  .answer-label {
+    padding-left: 8px;
+  }
+
+  .icon-action {
+    padding: 4px;
+  }
+
+  .table > tbody > tr > td, .table > tbody > tr > th {
+    vertical-align: top;
   }
 
 }

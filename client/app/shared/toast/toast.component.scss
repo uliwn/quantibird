@@ -1,11 +1,8 @@
 .alert {
-  top: 22px;
-  left: 0;
-  right: 0;
-  margin: auto;
+  right: 25px;
   opacity: 1;
   position: fixed;
-  width: 60%;
+  min-width: 350px;
   z-index: 3000;
 }
 
