@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SurveyService } from '../services/survey.service';
@@ -16,7 +16,6 @@ declare const $: any;
   styleUrls: ['./survey-create.component.scss']
 })
 export class SurveyCreateComponent implements OnInit {
-  @Input() data: Survey;
 
   survey = new Survey();
   surveys: Survey[] = [];
@@ -60,10 +59,6 @@ export class SurveyCreateComponent implements OnInit {
     this.addAnswerForm = this.formBuilder.group({
       title: this.answerTitle
     });
-
-    if (this.data) {
-      this.questions = this.data.questions;
-    }
   }
 
   saveSurvey() {
@@ -106,48 +101,8 @@ export class SurveyCreateComponent implements OnInit {
     this.addAnswerForm.reset();
   }
 
-  enableEditing(survey: Survey) {
-    this.isEditing = true;
-    this.survey = survey;
-  }
-
-  cancelEditing() {
-    this.isEditing = false;
-    this.survey = new Survey();
-    this.toast.setMessage('item editing cancelled.', 'warning');
-    // reload the surveys to reset the editing
-  }
-
-  editSurvey(survey: Survey) {
-    this.surveyService.editSurvey(survey).subscribe(
-      () => {
-        this.isEditing = false;
-        this.survey = survey;
-        this.toast.setMessage('item edited successfully.', 'success');
-      },
-      error => console.log(error)
-    );
-  }
-
-  deleteSurvey(survey: Survey) {
-    if (window.confirm('Are you sure you want to permanently delete this item?')) {
-      this.surveyService.deleteSurvey(survey).subscribe(
-        () => {
-          const pos = this.surveys.map(elem => elem._id).indexOf(survey._id);
-          this.surveys.splice(pos, 1);
-          this.toast.setMessage('item deleted successfully.', 'success');
-        },
-        error => console.log(error)
-      );
-    }
-  }
-
   deleteQuestion(question) {
     _.remove(this.questions, q => q.key === question.key);
-  }
-
-  editAnswer(answer) {
-    this.addAnswerForm.setValue({title: answer.title});
   }
 
   setEditValue(value) {
@@ -160,10 +115,6 @@ export class SurveyCreateComponent implements OnInit {
 
   deleteAnswerInQuestion(question, answer) {
     _.remove(question.answers, (a: any) => a.key === answer.key);
-  }
-
-  showMessage() {
-    this.toast.setMessage('Umfrage erfolgreich erstellt', 'success');
   }
 
 }

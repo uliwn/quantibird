@@ -18,17 +18,16 @@ export class SurveyComponent implements OnInit {
   survey = new Survey();
   surveys: Survey[] = [];
 
+  questions = null;
+  editValue = null;
+
   isLoading = true;
   isEditing = false;
-
-  name = new FormControl('', Validators.required);
-  description = new FormControl('', Validators.required);
 
 
   constructor(private surveyService: SurveyService,
               private auth: AuthService,
               private router: Router,
-              private formBuilder: FormBuilder,
               public toast: ToastComponent) { }
 
 
@@ -48,9 +47,14 @@ export class SurveyComponent implements OnInit {
     this.router.navigate(['/survey/result', survey._id]);
   }
 
+  setEditValue(value) {
+    this.editValue = value;
+  }
+
   enableEditing(survey: Survey, e: Event) {
     this.isEditing = true;
     this.survey = survey;
+    this.questions = survey.questions;
 
     e.stopPropagation();
   }
@@ -58,7 +62,8 @@ export class SurveyComponent implements OnInit {
   cancelEditing() {
     this.isEditing = false;
     this.survey = new Survey();
-    this.toast.setMessage('item editing cancelled.', 'warning');
+
+    // this.toast.setMessage('item editing cancelled.', 'warning');
     // reload the surveys to reset the editing
     this.getSurveys();
   }
@@ -68,19 +73,19 @@ export class SurveyComponent implements OnInit {
       () => {
         this.isEditing = false;
         this.survey = survey;
-        this.toast.setMessage('item edited successfully.', 'success');
+        this.toast.setMessage('Umfrage wurde erfolgreich bearbeitet.', 'success');
       },
       error => console.log(error)
     );
   }
 
   deleteSurvey(survey: Survey, e: Event) {
-    if (window.confirm('Are you sure you want to permanently delete this item?')) {
+    if (window.confirm('Sind Sie sicher, dass Sie diese Umfrage löschen möchten?')) {
       this.surveyService.deleteSurvey(survey).subscribe(
         () => {
           const pos = this.surveys.map(elem => elem._id).indexOf(survey._id);
           this.surveys.splice(pos, 1);
-          this.toast.setMessage('item deleted successfully.', 'success');
+          this.toast.setMessage('Umfrage erfolgreich gelöscht.', 'success');
         },
         error => console.log(error)
       );

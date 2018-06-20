@@ -4,11 +4,24 @@
     font-weight: 400;
   }
 
-  .table tr td {
+  .table.survey-overview tr td {
     cursor: pointer;
   }
 
   .form-control {
     width: 80%;
+  }
+
+  .icon-action {
+    padding: 4px;
+  }
+
+  .survey_main_data {
+    padding: 0 22px;
+  }
+
+  .survey-actions {
+    display: flex;
+    justify-content: flex-end;
   }
 }

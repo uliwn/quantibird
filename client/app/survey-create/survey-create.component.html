@@ -7,7 +7,7 @@
     <div class="row">
       <div class="col-md-12">
 
-        <div class="card" *ngIf="!isEditing">
+        <div class="card">
           <div class="card-header" data-background-color="blue">
             <h4>Umfrage</h4>
             <p class="category">Eine neue Umfrage erstellen.</p>
@@ -16,19 +16,21 @@
 
             <form class="survey-form" [formGroup]="addSurveyForm" (ngSubmit)="saveSurvey()">
 
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group form-black label-floating is-empty">
-                    <label class="control-label">Name der Umfrage</label>
-                    <input type="text" class="form-control" name="name" formControlName="name" required>
+              <div class="survey-main-data">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group form-black label-floating is-empty">
+                      <label class="control-label">Name der Umfrage</label>
+                      <input type="text" class="form-control" name="name" formControlName="name" required>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group form-black label-floating is-empty">
-                    <label class="control-label">Beischreibung der Umfrage</label>
-                    <input type="text" class="form-control" name="description" formControlName="description" required>
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group form-black label-floating is-empty">
+                      <label class="control-label">Beischreibung der Umfrage</label>
+                      <input type="text" class="form-control" name="description" formControlName="description" required>
+                    </div>
                   </div>
                 </div>
               </div>
