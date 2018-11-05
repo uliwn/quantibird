@@ -22,7 +22,8 @@
     "linthtml": "htmlhint \"client/**/*.html\"",
     "lintscss": "sass-lint \"client/**/*.scss\" -v",
     "lintbe": "tslint server/**/**.ts{,x}",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "tsc -p server && ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
