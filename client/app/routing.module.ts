@@ -17,7 +17,7 @@ import {SurveyResultComponent} from './survey-result/survey-result.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardLogin] },
   { path: 'surveys', component: SurveyComponent },
   { path: 'survey/create', component: SurveyCreateComponent },
   { path: 'survey/result/:id', component: SurveyResultComponent },
