@@ -4,4 +4,5 @@ export class Survey {
   description?: string;
   questions?: any;
   userId?: string;
+  active?: boolean;
 }

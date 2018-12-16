@@ -59,6 +59,13 @@ export class SurveyComponent implements OnInit {
     e.stopPropagation();
   }
 
+  toggleStatus(survey: Survey, e: Event) {
+    e.stopPropagation();
+
+    survey.active = !survey.active;
+    this.editSurvey(survey);
+  }
+
   cancelEditing() {
     this.isEditing = false;
     this.survey = new Survey();

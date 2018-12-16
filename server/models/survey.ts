@@ -5,7 +5,8 @@ const surveySchema = new mongoose.Schema({
   description: String,
   questions: [{ key: Number, title: String, answers: [{ key: Number, title: String }] }],
   userId: String,
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  active: { type: Boolean, default: false },
 });
 
 const Survey = mongoose.model('Survey', surveySchema);

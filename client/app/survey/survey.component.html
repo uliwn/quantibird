@@ -18,6 +18,7 @@
               <tr>
                 <th>Name</th>
                 <th>Beschreibung</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
               </thead>
@@ -31,11 +32,23 @@
                 <td>{{survey.name}}</td>
                 <td>{{survey.description}}</td>
                 <td>
+                  <span *ngIf="survey.active" style="color: green;">aktiv</span>
+                  <span *ngIf="!survey.active" style="color: red;">inaktiv</span>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-primary"
+                          title="Activate/Deactivate"
+                          (click)="toggleStatus(survey, $event)">
+                    <i *ngIf="!survey.active" class="fa fa-eye"></i>
+                    <i *ngIf="survey.active" class="fa fa-eye-slash"></i>
+                  </button>
                   <button class="btn btn-sm btn-warning"
+                          title="Edit"
                           (click)="enableEditing(survey, $event)">
                     <i class="fa fa-pencil"></i>
                   </button>
                   <button class="btn btn-sm btn-danger"
+                          title="delete"
                           (click)="deleteSurvey(survey, $event)">
                     <i class="fa fa-trash"></i>
                   </button>

@@ -11,4 +11,11 @@ export default class SurveyCtrl extends BaseCtrl {
     });
   }
 
+  getActive = (req, res) => {
+    this.model.find({ active: true }, (err, item) => {
+      if (err) { return console.error(err); }
+      res.status(200).json(item);
+    });
+  }
+
 }

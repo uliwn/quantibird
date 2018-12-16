@@ -3,8 +3,6 @@ import * as express from 'express';
 import SurveyCtrl from './controllers/survey';
 import SurveyResultCtrl from './controllers/surveyResult';
 import UserCtrl from './controllers/user';
-import Survey from './models/survey';
-import User from './models/user';
 
 export default function setRoutes(app) {
 
@@ -16,6 +14,7 @@ export default function setRoutes(app) {
 
   // Survey
   router.route('/surveys').get(surveyCtrl.getAll);
+  router.route('/surveys/active').get(surveyCtrl.getActive);
   router.route('/surveys/:userId').get(surveyCtrl.getByUser);
   router.route('/surveys/count').get(surveyCtrl.count);
   router.route('/survey').post(surveyCtrl.insert);

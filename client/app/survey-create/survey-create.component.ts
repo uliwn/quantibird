@@ -64,11 +64,12 @@ export class SurveyCreateComponent implements OnInit {
   saveSurvey() {
     this.isLoading = true;
 
-    const body = this.addSurveyForm.value;
-    body.userId = this.auth.currentUser._id;
-    body.questions = this.questions;
+    const survey = this.addSurveyForm.value;
+    survey.userId = this.auth.currentUser._id;
+    survey.questions = this.questions;
+    survey.actvie = false;
 
-    this.surveyService.addSurvey(body).subscribe(
+    this.surveyService.addSurvey(survey).subscribe(
       res => {
         this.surveys.push(res);
         this.questions = [];
